@@ -176,3 +176,87 @@
     });
 
 
+// ==========================================
+// Web3Kenya Cookie Consent
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cookieBanner = document.getElementById("cookieConsent");
+    const acceptButton = document.getElementById("acceptCookies");
+    const declineButton = document.getElementById("declineCookies");
+
+    // Check whether the visitor has already made a choice
+    const cookieConsent = getCookie("web3kenya_cookie_consent");
+
+    // Show the banner only if no choice has been made
+    if (!cookieConsent && cookieBanner) {
+        cookieBanner.style.display = "block";
+    }
+
+    // Accept cookies
+    if (acceptButton) {
+        acceptButton.addEventListener("click", function () {
+
+            setCookie(
+                "web3kenya_cookie_consent",
+                "accepted",
+                365
+            );
+
+            cookieBanner.style.display = "none";
+        });
+    }
+
+    // Decline cookies
+    if (declineButton) {
+        declineButton.addEventListener("click", function () {
+
+            setCookie(
+                "web3kenya_cookie_consent",
+                "declined",
+                365
+            );
+
+            cookieBanner.style.display = "none";
+        });
+    }
+
+    // Create a cookie
+    function setCookie(name, value, days) {
+
+        const date = new Date();
+
+        date.setTime(
+            date.getTime() + (days * 24 * 60 * 60 * 1000)
+        );
+
+        document.cookie =
+            name + "=" + encodeURIComponent(value) +
+            "; expires=" + date.toUTCString() +
+            "; path=/";
+    }
+
+    // Read a cookie
+    function getCookie(name) {
+
+        const nameEQ = name + "=";
+        const cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+
+            let cookie = cookies[i].trim();
+
+            if (cookie.indexOf(nameEQ) === 0) {
+
+                return decodeURIComponent(
+                    cookie.substring(nameEQ.length)
+                );
+            }
+        }
+
+        return null;
+    }
+
+});
+
