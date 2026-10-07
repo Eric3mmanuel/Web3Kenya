@@ -177,7 +177,7 @@
 
 
 // ==========================================
-// Web3Kenya Cookie Consent
+// Web3Kenya Cookie Consent + Widget Control
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -186,16 +186,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const acceptButton = document.getElementById("acceptCookies");
     const declineButton = document.getElementById("declineCookies");
 
-    // Check whether the visitor has already made a choice
+    // Check existing consent
     const cookieConsent = getCookie("web3kenya_cookie_consent");
 
-    // Show the banner only if no choice has been made
+    // If visitor has already accepted, load the widgets immediately
+    if (cookieConsent === "accepted") {
+        loadWeb3KenyaWidgets();
+    }
+
+    // If visitor has not made a choice, show the banner
     if (!cookieConsent && cookieBanner) {
         cookieBanner.style.display = "block";
     }
 
-    // Accept cookies
+    // ==========================================
+    // ACCEPT COOKIES
+    // ==========================================
+
     if (acceptButton) {
+
         acceptButton.addEventListener("click", function () {
 
             setCookie(
@@ -205,11 +214,18 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             cookieBanner.style.display = "none";
+
+            // Load Chatbase + WhatsApp
+            loadWeb3KenyaWidgets();
         });
     }
 
-    // Decline cookies
+    // ==========================================
+    // DECLINE COOKIES
+    // ==========================================
+
     if (declineButton) {
+
         declineButton.addEventListener("click", function () {
 
             setCookie(
@@ -219,10 +235,16 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             cookieBanner.style.display = "none";
+
+            // Do NOT load the widgets
         });
     }
 
-    // Create a cookie
+
+    // ==========================================
+    // CREATE COOKIE
+    // ==========================================
+
     function setCookie(name, value, days) {
 
         const date = new Date();
@@ -237,7 +259,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "; path=/";
     }
 
-    // Read a cookie
+
+    // ==========================================
+    // READ COOKIE
+    // ==========================================
+
     function getCookie(name) {
 
         const nameEQ = name + "=";
@@ -258,5 +284,98 @@ document.addEventListener("DOMContentLoaded", function () {
         return null;
     }
 
-});
 
+    // ==========================================
+    // LOAD CHATBASE + WHATSAPP
+    // ==========================================
+
+    function loadWeb3KenyaWidgets() {
+
+        // Prevent loading twice
+        if (window.web3kenyaWidgetsLoaded) {
+            return;
+        }
+
+        window.web3kenyaWidgetsLoaded = true;
+
+
+        // --------------------------------------
+        // CHATBASE
+        // --------------------------------------
+
+        if (
+            !window.chatbase ||
+            window.chatbase("getState") !== "initialized"
+        ) {
+
+            window.chatbase = (...arguments) => {
+
+                if (!window.chatbase.q) {
+                    window.chatbase.q = [];
+                }
+
+                window.chatbase.q.push(arguments);
+            };
+
+            window.chatbase = new Proxy(
+                window.chatbase,
+                {
+                    get(target, prop) {
+
+                        if (prop === "q") {
+                            return target.q;
+                        }
+
+                        return (...args) =>
+                            target(prop, ...args);
+                    }
+                }
+            );
+        }
+
+        const chatbaseScript =
+            document.createElement("script");
+
+        chatbaseScript.src =
+            "https://www.chatbase.co/embed.min.js";
+
+        chatbaseScript.id =
+            "G-hUUeHjmbQYsd4Sre6tm";
+
+        chatbaseScript.domain =
+            "www.chatbase.co";
+
+        document.body.appendChild(chatbaseScript);
+
+
+        // --------------------------------------
+        // ELFSiGHT WHATSAPP
+        // --------------------------------------
+
+        const whatsappScript =
+            document.createElement("script");
+
+        whatsappScript.src =
+            "https://elfsightcdn.com/platform.js";
+
+        whatsappScript.async = true;
+
+        document.body.appendChild(whatsappScript);
+
+
+        // Create WhatsApp widget container
+        const whatsappWidget =
+            document.createElement("div");
+
+        whatsappWidget.className =
+            "elfsight-app-5c8d4005-430e-401f-bb92-779554027f0c";
+
+        whatsappWidget.setAttribute(
+            "data-elfsight-app-lazy",
+            ""
+        );
+
+        document.body.appendChild(whatsappWidget);
+    }
+
+});
