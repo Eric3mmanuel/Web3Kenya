@@ -1649,3 +1649,402 @@ a:focus {
 
 
 /** marquee **/
+
+
+
+/* =========================================
+   WEB3KENYA WEBSITE TYPES SHOWCASE
+   ========================================= */
+
+.w3k-types {
+  --w3k-purple: #9B65F5;
+  --w3k-orange: #FF923D;
+  --w3k-bg: #101018;
+  --w3k-card: #191822;
+  --w3k-border: rgba(255,255,255,.09);
+
+  width: 100%;
+  padding: 75px 20px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      ellipse at 5% 15%,
+      rgba(132, 76, 230, .12),
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 95% 85%,
+      rgba(255, 135, 49, .09),
+      transparent 40%
+    ),
+    var(--w3k-bg);
+
+  color: #fff;
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.w3k-types *,
+.w3k-types *::before,
+.w3k-types *::after {
+  box-sizing: border-box;
+}
+
+.w3k-types-inner {
+  max-width: 1350px;
+  margin: auto;
+}
+
+
+/* =========================================
+   SECTION HEADING
+   ========================================= */
+
+.w3k-types-heading {
+  max-width: 700px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.w3k-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+
+  color: #c2a4ff;
+  margin-bottom: 18px;
+}
+
+.w3k-types-heading h2 {
+  font-size: clamp(29px, 4vw, 47px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+
+  margin: 0 0 17px;
+  color: #fff;
+}
+
+.w3k-types-heading h2 span {
+  background: linear-gradient(
+    90deg,
+    #A77AFF,
+    #FF9A50
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.w3k-types-heading p {
+  max-width: 610px;
+  margin: auto;
+
+  color: #aaa8b8;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   GRID HEADING
+   ========================================= */
+
+.w3k-types-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 17px;
+
+  color: #a9a5b8;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+}
+
+.w3k-types-count {
+  color: #fff;
+  font-size: 16px;
+}
+
+.w3k-types-count i {
+  font-style: normal;
+  font-size: 9px;
+  color: #a9a5b8;
+}
+
+
+/* =========================================
+   WEBSITE TYPES GRID
+   ========================================= */
+
+.w3k-types-grid {
+  display: grid;
+
+  /* 18 columns on large screens */
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+
+/* =========================================
+   INDIVIDUAL WEBSITE TILES
+   ========================================= */
+
+.w3k-type {
+  position: relative;
+
+  min-height: 90px;
+  padding: 12px 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  border: 1px solid var(--w3k-border);
+  border-radius: 10px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.055),
+    rgba(255,255,255,.018)
+  );
+
+  color: #d7d4e0;
+
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  cursor: default;
+  overflow-wrap: anywhere;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    background .3s ease,
+    box-shadow .3s ease,
+    color .3s ease;
+
+  /* Initial animation state */
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+
+/* SMALL GRADIENT ACCENT */
+
+.w3k-type::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 22px;
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    var(--w3k-purple),
+    var(--w3k-orange)
+  );
+
+  opacity: .65;
+
+  transition:
+    width .3s ease,
+    opacity .3s ease;
+}
+
+
+/* =========================================
+   ENTRANCE ANIMATION STATE
+   ========================================= */
+
+.w3k-type.w3k-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   HOVER EFFECTS
+   ========================================= */
+
+@media (hover: hover) {
+
+  .w3k-type:hover {
+    transform: translateY(-5px);
+
+    color: #fff;
+
+    border-color: rgba(164, 112, 255, .65);
+
+    background: linear-gradient(
+      145deg,
+      rgba(155,101,245,.16),
+      rgba(255,146,61,.08)
+    );
+
+    box-shadow:
+      0 9px 25px rgba(0,0,0,.22),
+      0 0 15px rgba(155,101,245,.10);
+  }
+
+  .w3k-type:hover::before {
+    width: 65%;
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================
+   SECTION FOOTER
+   ========================================= */
+
+.w3k-types-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+
+  margin-top: 35px;
+}
+
+.w3k-types-footer p {
+  margin: 0;
+  text-align: center;
+
+  color: #aaa8b8;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.w3k-types-footer strong {
+  color: #d0a8ff;
+  font-weight: 700;
+}
+
+.w3k-footer-line {
+  width: 45px;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(169,115,255,.7)
+  );
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+/* LAPTOPS */
+
+@media (max-width: 1199px) {
+
+  .w3k-types-grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+
+}
+
+
+/* TABLETS */
+
+@media (max-width: 760px) {
+
+  .w3k-types {
+    padding: 60px 16px;
+  }
+
+  .w3k-types-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .w3k-type {
+    min-height: 82px;
+    padding: 10px 5px;
+    font-size: 10px;
+  }
+
+  .w3k-types-heading {
+    margin-bottom: 35px;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+  .w3k-types {
+    padding: 48px 12px;
+  }
+
+  .w3k-types-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .w3k-type {
+    min-height: 78px;
+    font-size: 10px;
+    border-radius: 8px;
+  }
+
+  .w3k-types-heading h2 {
+    letter-spacing: -.8px;
+  }
+
+  .w3k-types-heading p {
+    font-size: 13px;
+  }
+
+  .w3k-types-meta {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .w3k-types-footer {
+    gap: 9px;
+  }
+
+  .w3k-footer-line {
+    width: 20px;
+  }
+
+}
+
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .w3k-type {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+
+}
+
