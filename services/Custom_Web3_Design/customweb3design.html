@@ -1239,6 +1239,44 @@
     <div class="elfsight-app-28c9e5bd-ae27-40a4-8287-a6ae98fb9acc" data-elfsight-app-lazy></div>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".w3k-types");
+
+  if (!section) return;
+
+  const cards = section.querySelectorAll(".w3k-type");
+
+  // Reveal cards when they enter the viewport
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("w3k-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    cards.forEach((card, index) => {
+      // Slight staggered animation
+      card.style.transitionDelay = `${(index % 9) * 45}ms`;
+      observer.observe(card);
+    });
+
+  } else {
+    // Fallback for older browsers
+    cards.forEach((card) => {
+      card.classList.add("w3k-visible");
+    });
+  }
+});
+</script>
+
+
 </body>
 
 </html>
