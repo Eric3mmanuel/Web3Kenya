@@ -891,3 +891,28 @@ h6,
 
 
 
+/* Mobile-only hero animation optimization */
+@media (max-width: 767px) {
+
+    .hero-header .animated.slideInDown {
+        animation-name: heroSlideInDownMobile !important;
+        animation-duration: 0.85s !important;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+        animation-fill-mode: both;
+    }
+
+    @keyframes heroSlideInDownMobile {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -18px, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+
+
