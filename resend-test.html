@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web3Kenya Email Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 420px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    main {
+      background: white;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px #0001;
+    }
+
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      border: 0;
+      background: #6a5cff;
+      color: white;
+      font-weight: bold;
+    }
+
+    #status {
+      margin-top: 18px;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Web3Kenya Resend Test</h2>
+    <p>Enter your private test token to send a test email to your saved inbox.</p>
+
+    <input
+      id="token"
+      type="password"
+      placeholder="Private test token"
+      autocomplete="off"
+    >
+
+    <button id="send">Send test email</button>
+
+    <p id="status"></p>
+  </main>
+
+  <script>
+    const button = document.getElementById("send");
+    const tokenInput = document.getElementById("token");
+    const status = document.getElementById("status");
+
+    button.addEventListener("click", async () => {
+      const token = tokenInput.value.trim();
+
+      if (!token) {
+        status.textContent = "Please enter your test token.";
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = "Sending test email...";
+
+      try {
+        const response = await fetch("/api/send-test", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          status.textContent =
+            "Success! Resend accepted the test email.";
+        } else {
+          status.textContent =
+            result.error || "The test email failed.";
+        }
+      } catch (error) {
+        status.textContent =
+          "Could not contact the email function.";
+      } finally {
+        tokenInput.value = "";
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
